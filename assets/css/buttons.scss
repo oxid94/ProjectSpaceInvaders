@@ -1,0 +1,15 @@
+.btn {
+  padding: 10px 25px;
+
+  &.btn-default {
+    background: $btnDefault;
+    border: 1px solid $borderBtnDefault;
+    color: #333;
+
+    &:hover, &:focus {
+      background: $borderBtnDefault;
+      border: 1px solid $btnDefault;
+      color: #fff;
+    }
+  }
+}
