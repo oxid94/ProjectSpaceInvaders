@@ -8,7 +8,6 @@ $('#startGame').on('click', function(){
   $('.grid').show();
 
 
-
   var arClases = ['icon-in-uno','icon-in-dos','icon-in-tres','icon-in-cuatro','icon-in-cinco','icon-in-seis']
   arAliens = new Aliens(2,6,5,10,arClases);
   spaceC = new Spacecraft();

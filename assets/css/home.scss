@@ -42,18 +42,20 @@
   border-radius: 20px;
 
   .block {
+    position: relative;
     float: left;
     width: 20px;
     height: 20px;
 
-    .icon-in-uno{ color: #f402bd}
-    .icon-in-dos{ color: #00ebea}
-    .icon-in-tres{ color: #780ef8}
-    .icon-in-cuatro{ color: #0efc08}
-    .icon-in-cinco{ color: #e9f402}
-    .icon-in-seis{ color: #fc1705}
-    .icon-spaceship{ color: #fff; font-size: 19.5px;}
-    .icon-thunderbolt{ color: #f5912a;}
+    .icon-in-uno{ color: #f402bd; position: absolute;}
+    .icon-in-dos{ color: #00ebea; position: absolute;}
+    .icon-in-tres{ color: #780ef8; position: absolute;}
+    .icon-in-cuatro{ color: #0efc08; position: absolute;}
+    .icon-in-cinco{ color: #e9f402; position: absolute;}
+    .icon-in-seis{ color: #fc1705; position: absolute;}
+    .icon-spaceship{ color: #fff; font-size: 19.5px; position: absolute;}
+    .icon-thunderbolt{ color: #f5912a; position: absolute;}
+    .icon-bomb{ color: #0efc08; position: absolute;}
   }
 }
 
