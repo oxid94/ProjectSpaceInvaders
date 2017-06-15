@@ -3,9 +3,12 @@ function Game(options) {
   this.columns = options.columns;
   this.aliens = options.aliens;
   this.spacecraft = options.spacecraft;
+}
 
-  for (var rowIndex = 0; rowIndex < options.rows; rowIndex++) {
-    for (var columnIndex = 0; columnIndex < options.columns; columnIndex++) {
+// Funcion que genera el grid del juego
+Game.prototype.generateGrid = function(){
+  for (var rowIndex = 0; rowIndex < this.rows; rowIndex++) {
+    for (var columnIndex = 0; columnIndex < this.columns; columnIndex++) {
       $('.grid').append($('<div>')
         .addClass('block')
         .attr('data-row', rowIndex)
@@ -15,7 +18,15 @@ function Game(options) {
   }
 }
 
+// Funcion que borra el grid del juego
+Game.prototype.deleteGrid = function(){
+    $('.grid').children().remove();
+    this.spacecraft.shoot = [];
+}
+
+// La funcion que recoge los comandos de teclado
 Game.prototype.assignControlsToKeys = function(){
+  $('body').unbind();
   var self = this;
   $('body').on('keydown', function(e) {
     switch (e.keyCode) {
@@ -33,51 +44,50 @@ Game.prototype.assignControlsToKeys = function(){
 
 }
 
-Game.prototype.start = function(){
-  setInterval(this.inverval.bind(this), 500);
+// La funcion dibuja el grid la nave y los aliens
+Game.prototype.drawItemsToStart = function(){
+  this.generateGrid();
   this.spacecraft.drawSpacecraft();
   this.aliens.drawAlien()
-  this.assignControlsToKeys();
 }
 
-Game.prototype.inverval = function(){
+// La funcion que genera el movimiento
+//    1- mira si un disparo de la nave ha impactado a un alien
+//    2- mueve los aliens, y mira si han tocado la nave (Si tocan la nave salta el Game Over)
+//    3- mueve los disparos de la nave
+Game.prototype.startMoveGame = function(){
   this.shootImpactAlien();
-  var restart = this.aliens.moveAlien();
   this.spacecraft.moveShoot();
-  this.gameOver();
-  if(!restart) {
-    this.reStart();
-    alert("Game Over");
-  }
+  var alienTouchUser = this.aliens.moveAlien();
+  return alienTouchUser;
 }
 
-
-Game.prototype.gameOver = function () {
+// Funcion que salta un alert con gameOver, si un disparo de un alien te toca o los aliens te tocan.
+Game.prototype.gameOver = function (restart) {
   var self = this;
-  this.aliens.arShoots.forEach(function (shot){
-    // console.log("spacecraft-> " +  self.spacecraft.pos.row + "-" + self.spacecraft.pos.col);
-    // console.log("shot-> " +  shot.row + "-" + shot.col);
-    if(self.spacecraft.pos.row === shot.row && self.spacecraft.pos.col === shot.col) {
-      self.reStart();
-      alert("Game Over");
-    }
-  });
-}
-
-Game.prototype.reStart = function() {
-  var arClases = ['icon-in-uno','icon-in-dos','icon-in-tres','icon-in-cuatro','icon-in-cinco','icon-in-seis']
-  this.aliens = new Aliens(2,6,5,10,arClases);
-  this.spacecraft = new Spacecraft();
-  this.spacecraft.removeSpacecraft();
-  this.spacecraft.drawSpacecraft();
-  this.aliens.removeAliens()
-  this.aliens.drawAlien();
+  var isGameOver = false;
+  if(this.aliens.arAlien.length === 0){
+    alert("You Win!");
+  } else {
+    this.aliens.arShoots.forEach(function (shot){
+      if(self.spacecraft.pos.row === shot.row && self.spacecraft.pos.col === shot.col) {
+        isGameOver = true;
+        self.deleteGrid();
+        alert("Game Over");
+      } else {
+        if(!restart) {
+          isGameOver = true;
+          self.deleteGrid();
+          alert("Game Over");
+        }
+      }
+    });
+  }
+  return isGameOver;
 }
 
 Game.prototype.shootImpactAlien = function() {
   var self = this;
-
-  // recorro los aliens
   this.aliens.arAlien.forEach(function(fila, fIndex){
     fila.forEach(function(alien, aIndex){
       var alienRow = alien.row;
@@ -90,12 +100,5 @@ Game.prototype.shootImpactAlien = function() {
       })
     });
   });
-
-
-
-
-
-
-
-
+  this.aliens.drawAlien();
 }

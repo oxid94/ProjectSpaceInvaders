@@ -1,5 +1,5 @@
 function Spacecraft(){
-  this.lives = 3;
+  this.shields = 3;
   this.pos = {
     row: 28,
     col: 9
@@ -100,6 +100,10 @@ Spacecraft.prototype.moveShoot = function() {
   var self = this;
   this.shoot.forEach(function(shot, index) {
     self.shoot[index].row = shot.row - 1;
+
+    if(self.shoot[index].row < 0) {
+      self.shoot.splice(index,1);
+    }
   });
   this.removeShoot();
   this.drawShoot();
