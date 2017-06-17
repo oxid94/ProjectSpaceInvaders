@@ -11,8 +11,6 @@ $('#startGame').on('click', function(){
 
   generateGame();
 
-
-
   interval = setInterval( function() {
     restartGame = game.startMoveGame();
   }, 500);

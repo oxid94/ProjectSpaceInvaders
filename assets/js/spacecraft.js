@@ -1,5 +1,5 @@
 function Spacecraft(){
-  this.shields = 3;
+  this.shields = 0;
   this.pos = {
     row: 28,
     col: 9
@@ -52,6 +52,7 @@ Spacecraft.prototype.generateShoot = function() {
           col: colS,
           timeMillis: now
         }
+        new buzz.sound("assets/sound/shoot.wav").play();
         this.shoot.push(shoot);
       }
     }
@@ -66,6 +67,7 @@ Spacecraft.prototype.generateShoot = function() {
         timeMillis: now
       }
       this.shoot.push(shoot);
+      new buzz.sound("assets/sound/shoot.wav").play();
     }
   }
   this.drawShoot();

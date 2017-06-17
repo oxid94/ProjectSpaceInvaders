@@ -3,6 +3,7 @@ function Game(options) {
   this.columns = options.columns;
   this.aliens = options.aliens;
   this.spacecraft = options.spacecraft;
+  this.shield = null;
 }
 
 // Funcion que genera el grid del juego
@@ -39,9 +40,33 @@ Game.prototype.assignControlsToKeys = function(){
       case 32: // space bar (shot)
         self.spacecraft.generateShoot();
           break;
+      default:
+      var recognition;
+      var recognizing = false;
+        recognition.start();
+        recognition = new webkitSpeechRecognition();
+          recognition.lang = "en-US";
+          recognition.continuous = false;
+          recognition.interimResults = true;
+
+          recognition.onstart = function() {
+            recognizing = true;
+            console.log("empezando a escuchar");
+          }
+          recognition.onresult = function(event) {
+           for (var i = event.resultIndex; i < event.results.length; i++) {
+            if(event.results[i].isFinal)
+              console.log(event.results[i][0].transcript);
+              }
+          }
+          recognition.onerror = function(event) {
+          }
+          recognition.onend = function() {
+            recognizing = false;
+          }
+          break;
     }
   });
-
 }
 
 // La funcion dibuja el grid la nave y los aliens
@@ -73,11 +98,13 @@ Game.prototype.gameOver = function (restart) {
       if(self.spacecraft.pos.row === shot.row && self.spacecraft.pos.col === shot.col) {
         isGameOver = true;
         self.deleteGrid();
+        new buzz.sound("assets/sound/playerDie.wav").play();
         alert("Game Over");
       } else {
         if(!restart) {
           isGameOver = true;
           self.deleteGrid();
+          new buzz.sound("assets/sound/playerDie.wav").play();
           alert("Game Over");
         }
       }
@@ -96,9 +123,19 @@ Game.prototype.shootImpactAlien = function() {
           if(shot.row === alienRow && shot.col === alienCol){
             self.spacecraft.shoot.splice(sIndex,1);
             self.aliens.arAlien[fIndex][aIndex] = 0;
+            new buzz.sound("assets/sound/invaderDie.wav").play();
           }
       })
     });
   });
   this.aliens.drawAlien();
+}
+
+Game.prototype.generateShield = function() {
+  if (this.shield === null ) {
+    var randomNum = Math.floor(Math.random() * 30);
+    if( randomNum === 15 ) {
+
+    }
+  }
 }
