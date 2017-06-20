@@ -1,42 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Space-Invarders | Marc Nicolau</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/css/style.min.css">
-    <link rel="stylesheet" href="assets/fonts/ca.ttf">
-    <link rel="stylesheet" href="assets/css/icons.css">
-  </head>
-  <body>
-    <div class="container">
-      <div class="logo">
-        <img class="logo-img" src="assets/img/brandLogo.png" alt="brandLogo">
-        <div class="aliens-group text-blink ">
-          <span class="icon-in-uno"></span>
-          <span class="icon-in-dos"></span>
-          <span class="icon-in-tres"></span>
-          <span class="icon-in-cuatro"></span>
-          <span class="icon-in-cinco"></span>
-          <span class="icon-in-seis"></span>
-        </div>
-        <span class="logo-start-text text-blink">Press Start to Play</span>
 
-        <button id="startGame" class="btn btn-default">Start</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Space-Invarders | Marc Nicolau</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="assets/css/style.min.css">
+  <link rel="stylesheet" href="assets/fonts/ca.ttf">
+  <link rel="stylesheet" href="assets/css/icons.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <img class="logo-img" src="assets/img/brandLogo.png" alt="brandLogo">
+      <div class="aliens-group text-blink ">
+        <span class="icon-in-uno"></span>
+        <span class="icon-in-dos"></span>
+        <span class="icon-in-tres"></span>
+        <span class="icon-in-cuatro"></span>
+        <span class="icon-in-cinco"></span>
+        <span class="icon-in-seis"></span>
       </div>
-      <div class="grid"></div>
-      <div class="game-status"></div>
-    </div>
+      <span class="logo-start-text text-blink">Press Start to Play</span>
 
-    <script src="./assets/js/game.js"></script>
-    <script src="./assets/js/alien.js"></script>
-    <script src="./assets/js/spacecraft.js"></script>
-    <script src="./assets/js/controler.js"></script>
-    <script src="./assets/js/buzz.min.js"></script>
-  </body>
+      <button id="startGame" class="btn btn-default">Start</button>
+    </div>
+    <div class="grid"></div>
+    <div class="game-points">
+      <span id="points"></span>
+      <span id="shield"></span>
+    </div>
+    <div class="game-status"></div>
+  </div>
+
+  <script src="./assets/js/game.js"></script>
+  <script src="./assets/js/alien.js"></script>
+  <script src="./assets/js/spacecraft.js"></script>
+  <script src="./assets/js/controler.js"></script>
+  <script src="./assets/js/buzz.min.js"></script>
+</body>
+
 </html>

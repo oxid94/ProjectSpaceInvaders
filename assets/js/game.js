@@ -4,6 +4,7 @@ function Game(options) {
   this.aliens = options.aliens;
   this.spacecraft = options.spacecraft;
   this.shield = null;
+  this.points = 0;
 }
 
 // Funcion que genera el grid del juego
@@ -83,6 +84,8 @@ Game.prototype.drawItemsToStart = function(){
 Game.prototype.startMoveGame = function(){
   this.shootImpactAlien();
   this.spacecraft.moveShoot();
+  this.generateShield();
+  this.drawPoints();
   var alienTouchUser = this.aliens.moveAlien();
   return alienTouchUser;
 }
@@ -91,25 +94,19 @@ Game.prototype.startMoveGame = function(){
 Game.prototype.gameOver = function (restart) {
   var self = this;
   var isGameOver = false;
-  if(this.aliens.arAlien.length === 0){
-    alert("You Win!");
-  } else {
     this.aliens.arShoots.forEach(function (shot){
       if(self.spacecraft.pos.row === shot.row && self.spacecraft.pos.col === shot.col) {
         isGameOver = true;
         self.deleteGrid();
         new buzz.sound("assets/sound/playerDie.wav").play();
-        alert("Game Over");
       } else {
         if(!restart) {
           isGameOver = true;
           self.deleteGrid();
           new buzz.sound("assets/sound/playerDie.wav").play();
-          alert("Game Over");
         }
       }
     });
-  }
   return isGameOver;
 }
 
@@ -124,18 +121,25 @@ Game.prototype.shootImpactAlien = function() {
             self.spacecraft.shoot.splice(sIndex,1);
             self.aliens.arAlien[fIndex][aIndex] = 0;
             new buzz.sound("assets/sound/invaderDie.wav").play();
+            self.points += 5;
           }
       })
     });
   });
   this.aliens.drawAlien();
+  this.drawPoints();
 }
 
 Game.prototype.generateShield = function() {
   if (this.shield === null ) {
     var randomNum = Math.floor(Math.random() * 30);
     if( randomNum === 15 ) {
-
+      console.log("shield");
     }
   }
+}
+
+Game.prototype.drawPoints = function() {
+  console.log("suma punts");
+    $('#points').text("Points: " + this.points);
 }

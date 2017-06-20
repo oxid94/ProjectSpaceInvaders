@@ -3,6 +3,7 @@ var interval;
 var restartGame = false;
 $( document ).ready(function() {
     $('.grid').hide();
+    $('.game-status').hide();
 });
 
 $('#startGame').on('click', function(){
@@ -33,10 +34,9 @@ function generateGame() {
 }
 
 var recursiveInterval = function(x) {
-    if(x > 1) {
+    if(game.aliens.getAliensAlive() != 0) {
       var recInterval = setInterval(function() {
         if (game.aliens.getAliensAlive() < x){
-          console.log("speed increase");
           clearInterval(interval);
           interval = setInterval( function() {
             restartGame = game.startMoveGame();
@@ -45,26 +45,26 @@ var recursiveInterval = function(x) {
           return recursiveInterval(x-10)
         }
         if(game.gameOver(restartGame)) {
-          // delete Game.prototype.assignControlsToKeys;
-          game.assignControlsToKeys = undefined;
-          clearInterval(interval);
           clearInterval(recInterval);
-          $('.logo').show();
+          clearInterval(interval);
           $('.grid').hide();
-
-          // Tiene que ir una funcion para reemplazar las teclas
-
+          $('.game-status').show();
+          $('.game-status').text('Game Over');
+          setTimeout(function(){
+            $('.logo').show();
+            $('.game-status').hide();
+          }, 2000);
         }
-
       },100)
     } else {
-      // delete Game.prototype.assignControlsToKeys;
-      game.assignControlsToKeys = undefined;
-      alert("You Win")
       clearInterval(recInterval);
       clearInterval(interval);
-      $('.logo').show();
       $('.grid').hide();
-
+      $('.game-status').show();
+      $('.game-status').text('You Win');
+      setTimeout(function(){
+        $('.logo').show();
+        $('.game-status').hide();
+      }, 2000);
     }
 }

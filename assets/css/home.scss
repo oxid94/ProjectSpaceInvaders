@@ -63,6 +63,23 @@
   animation: blink 1s infinite;
 }
 
+.game-points {
+  color: #fff;
+}
+
+.game-status {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  right: 25%;
+  bottom: 25%;
+  width: 50%;
+
+  text-align: center;
+  color: #fff;
+  font-size: 150px;
+}
+
 @keyframes blink {
 	0% {opacity: 0}
 	50%{opacity: 1}
