@@ -50,6 +50,7 @@ var recursiveInterval = function(x) {
           $('.grid').hide();
           $('.game-status').show();
           $('.game-status').text('Game Over');
+          $('.game-points span.points').text("");
           setTimeout(function(){
             $('.logo').show();
             $('.game-status').hide();
@@ -62,6 +63,7 @@ var recursiveInterval = function(x) {
       $('.grid').hide();
       $('.game-status').show();
       $('.game-status').text('You Win');
+      $('.game-points span.points').text("");
       setTimeout(function(){
         $('.logo').show();
         $('.game-status').hide();

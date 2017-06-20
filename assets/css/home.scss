@@ -56,8 +56,11 @@
     .icon-spaceship{ color: #fff; font-size: 19.5px; position: absolute;}
     .icon-thunderbolt{ color: #f5912a; position: absolute;}
     .icon-bomb{ color: #0efc08; position: absolute;}
+    .icon-bubbles{ position: absolute;}
   }
 }
+
+.icon-bubbles{ color: #00ebea; font-size: 19.5px;}
 
 .text-blink {
   animation: blink 1s infinite;
@@ -65,6 +68,10 @@
 
 .game-points {
   color: #fff;
+
+  #points,#shield {
+    display: block;
+  }
 }
 
 .game-status {

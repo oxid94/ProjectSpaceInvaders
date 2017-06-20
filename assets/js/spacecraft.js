@@ -110,3 +110,13 @@ Spacecraft.prototype.moveShoot = function() {
   this.removeShoot();
   this.drawShoot();
 }
+
+Spacecraft.prototype.drawShields = function() {
+    var numberOfShields = "";
+    for (var i = 0; i < this.shields; i++) {
+      numberOfShields += "<span class='icon-bubbles'></span>";
+    }
+
+    var html = "Shields: " + numberOfShields
+    $('#shield').html(html);
+}

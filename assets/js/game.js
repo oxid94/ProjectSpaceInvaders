@@ -41,32 +41,7 @@ Game.prototype.assignControlsToKeys = function(){
       case 32: // space bar (shot)
         self.spacecraft.generateShoot();
           break;
-      default:
-      var recognition;
-      var recognizing = false;
-        recognition.start();
-        recognition = new webkitSpeechRecognition();
-          recognition.lang = "en-US";
-          recognition.continuous = false;
-          recognition.interimResults = true;
-
-          recognition.onstart = function() {
-            recognizing = true;
-            console.log("empezando a escuchar");
-          }
-          recognition.onresult = function(event) {
-           for (var i = event.resultIndex; i < event.results.length; i++) {
-            if(event.results[i].isFinal)
-              console.log(event.results[i][0].transcript);
-              }
-          }
-          recognition.onerror = function(event) {
-          }
-          recognition.onend = function() {
-            recognizing = false;
-          }
-          break;
-    }
+      }
   });
 }
 
@@ -85,6 +60,10 @@ Game.prototype.startMoveGame = function(){
   this.shootImpactAlien();
   this.spacecraft.moveShoot();
   this.generateShield();
+  this.spacecraft.drawShields();
+  if(this.shield !== null) {
+    this.moveShield();
+  }
   this.drawPoints();
   var alienTouchUser = this.aliens.moveAlien();
   return alienTouchUser;
@@ -134,12 +113,40 @@ Game.prototype.generateShield = function() {
   if (this.shield === null ) {
     var randomNum = Math.floor(Math.random() * 30);
     if( randomNum === 15 ) {
-      console.log("shield");
+      var shild = {
+        row: 0,
+        col: Math.floor(Math.random() * 20)
+      }
+      this.shield = shild;
+      this.drawShield();
     }
   }
 }
 
+Game.prototype.drawShield = function() {
+  var selector = '[data-row=' + this.shield.row + '][data-col=' + this.shield.col + ']';
+  $(selector).append($('<span>').addClass('icon-bubbles'))
+}
+
+Game.prototype.removeShield = function() {
+  $('.block  > span.icon-bubbles').remove();
+}
+
+Game.prototype.moveShield = function() {
+  this.shield.row+=1;
+  this.removeShield();
+  this.drawShield();
+  this.dropShield();
+}
+
 Game.prototype.drawPoints = function() {
-  console.log("suma punts");
     $('#points').text("Points: " + this.points);
+}
+
+Game.prototype.dropShield = function() {
+  if(this.spacecraft.pos.row === this.shield.row && this.spacecraft.pos.col === this.shield.col) {
+    this.shield = null;
+    this.spacecraft.shields+=1;
+    this.removeShield();
+  }
 }
