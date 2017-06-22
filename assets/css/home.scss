@@ -29,6 +29,18 @@
   }
 }
 
+.instructions {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  right: 25%;
+  bottom: 25%;
+  width: 50%;
+
+  color: #fff;
+  text-align: center;
+}
+
 .grid {
   position: relative;
   overflow: hidden;
@@ -61,6 +73,7 @@
 }
 
 .icon-bubbles{ color: #00ebea; font-size: 19.5px;}
+.icon-user-bubbles{ color: #00ebea; font-size: 19.5px;}
 
 .text-blink {
   animation: blink 1s infinite;

@@ -265,5 +265,6 @@ Aliens.prototype.getAliensAlive = function(){
       if(alien !== 0) {aliens++;}
     });
   });
+  console.log(aliens);
   return aliens;
 };

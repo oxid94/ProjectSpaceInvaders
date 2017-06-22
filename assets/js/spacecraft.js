@@ -5,11 +5,16 @@ function Spacecraft(){
     col: 9
   }
   this.shoot = [];
+  this.activateShield = false;
 }
 
 Spacecraft.prototype.drawSpacecraft = function() {
     var selector = '[data-row=' + this.pos.row + '][data-col=' + this.pos.col + ']';
-    $(selector).append($('<span>').addClass('icon-spaceship'))
+    $(selector).append($('<span>').addClass('icon-spaceship'));
+    if(this.activateShield) {
+      $(selector).append($('<span>').addClass('icon-user-bubbles'));
+    }
+
 };
 
 Spacecraft.prototype.goLeft = function() {
@@ -36,6 +41,7 @@ Spacecraft.prototype.moveSpacecraft = function(option) {
 }
 
 Spacecraft.prototype.removeSpacecraft = function() {
+  $('.block  > span.icon-user-bubbles').remove();
   $('.block  > span.icon-spaceship').remove();
 }
 
@@ -119,4 +125,13 @@ Spacecraft.prototype.drawShields = function() {
 
     var html = "Shields: " + numberOfShields
     $('#shield').html(html);
+}
+
+Spacecraft.prototype.activeShield = function() {
+  if( this.shields >= 1 && !this.activateShield) {
+    console.log("activo el escudo");
+    this.activateShield = true;
+    this.shields -=1;
+    console.log(this.activateShield);
+  }
 }

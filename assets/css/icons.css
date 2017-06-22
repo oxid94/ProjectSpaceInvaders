@@ -30,6 +30,9 @@
 .icon-bubbles:before {
   content: "\e907";
 }
+.icon-user-bubbles:before {
+  content: "\e907";
+}
 .icon-thunderbolt:before {
   content: "\e908";
 }

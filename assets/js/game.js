@@ -38,6 +38,9 @@ Game.prototype.assignControlsToKeys = function(){
       case 68: // arrow right
         self.spacecraft.moveSpacecraft("right");
         break;
+      case 83: // arrow right
+          self.spacecraft.activeShield();
+          break;
       case 32: // space bar (shot)
         self.spacecraft.generateShoot();
           break;
@@ -71,21 +74,30 @@ Game.prototype.startMoveGame = function(){
 
 // Funcion que salta un alert con gameOver, si un disparo de un alien te toca o los aliens te tocan.
 Game.prototype.gameOver = function (restart) {
-  var self = this;
+  var save = false;
+  // var self = this;
   var isGameOver = false;
-    this.aliens.arShoots.forEach(function (shot){
-      if(self.spacecraft.pos.row === shot.row && self.spacecraft.pos.col === shot.col) {
-        isGameOver = true;
-        self.deleteGrid();
-        new buzz.sound("assets/sound/playerDie.wav").play();
+    this.aliens.arShoots.forEach(function (shot, pos){
+      if(this.spacecraft.pos.row === shot.row && this.spacecraft.pos.col === shot.col) {
+        if (this.spacecraft.activateShield === false) {
+          if(save === false) {
+            isGameOver = true;
+            this.deleteGrid();
+            new buzz.sound("assets/sound/playerDie.wav").play();
+          }
+        } else {
+          this.spacecraft.activateShield = false;
+          save = true;
+          this.aliens.arShoots.splice(pos,1);
+        }
       } else {
         if(!restart) {
           isGameOver = true;
-          self.deleteGrid();
+          this.deleteGrid();
           new buzz.sound("assets/sound/playerDie.wav").play();
         }
       }
-    });
+    }.bind(this));
   return isGameOver;
 }
 
@@ -133,10 +145,14 @@ Game.prototype.removeShield = function() {
 }
 
 Game.prototype.moveShield = function() {
-  this.shield.row+=1;
-  this.removeShield();
-  this.drawShield();
-  this.dropShield();
+  if( this.shield.row > 30) {
+    this.shield = null;
+  } else {
+    this.shield.row+=1;
+    this.removeShield();
+    this.drawShield();
+    this.dropShield();
+  }
 }
 
 Game.prototype.drawPoints = function() {
